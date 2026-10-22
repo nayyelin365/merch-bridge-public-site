@@ -5,8 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "npx serve@14 out",
+    "lint": "eslint",
+    "images": "node scripts/generate-images.mjs",
+    "predev": "npm run images",
+    "prebuild": "npm run images"
   },
   "dependencies": {
     "next": "16.4.2",
@@ -14,13 +17,12 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
-    "tailwindcss": "^4",
+    "sharp": "^0.35.5",
     "typescript": "^5"
   }
 }

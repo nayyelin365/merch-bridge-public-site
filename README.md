@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Merch Bridge Company Limited — Website
 
-## Getting Started
+Static corporate website built with Next.js (App Router), TypeScript and CSS Modules.
+`npm run build` exports a fully static site to `out/`, which can be uploaded to any static host.
 
-First, run the development server:
+## Commands
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+| Command          | What it does                                                          |
+| ---------------- | --------------------------------------------------------------------- |
+| `npm run dev`    | Local dev server at http://localhost:3000 (optimizes images first)    |
+| `npm run build`  | Optimizes images, then builds the static site into `out/`             |
+| `npm start`      | Serves the built `out/` folder locally for a final check              |
+| `npm run images` | Re-scans `public/images/` and regenerates optimized images + manifest |
+
+Optional: set `NEXT_PUBLIC_SITE_URL=https://your-domain` when building so social-share previews use absolute URLs.
+
+## Project layout
+
+```
+app/                         pages (home, /products, /products/[direction]/[category])
+components/                  Navbar, ProductDropdown, HeroSection, ProductCategoryGrid,
+                             ProductCard, ImageLightbox, ServicesSection, ContactSection, Footer…
+data/company.ts              company name, slogan, contact details
+data/products.ts             Export / Import categories (names, summaries, display options)
+data/image-manifest.generated.ts   AUTO-GENERATED list of images — do not edit
+lib/product-name.ts          turns image file names into product names
+scripts/generate-images.mjs  image optimizer + manifest generator
+public/images/               original images (source of truth)
+public/optimized/            generated WebP images (git-ignored)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Adding or changing products
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Product images live in `public/images/<export|import>/<category>/`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+public/images/export/agri-products/
+├── cover.png          ← category card image (optional)
+├── beans/             ← sub-folder = a product group with its own heading
+│   ├── 1. Black Gram (Black Matpe).jpg
+│   └── 2. Green Gram (Mung Bean).jpg
+└── …
+public/images/import/pet-care/
+├── brand/             ← brand logo shown on the category page (optional)
+└── 1. Dry Foam for Cat.png
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Product name = file name.** `1. Black Gram (Black Matpe).jpg` is shown as "Black Gram (Black Matpe)".
+  The leading number only sets the order. Slug names like `red-kidney-bean.jpg` become "Red Kidney Bean".
+  To fix a name, rename the file.
+- **Add a product:** drop the image into the folder and run `npm run dev` or `npm run build`.
+- **Add a category:** create the folder, then add an entry with the same `slug` to `data/products.ts`.
+  Categories without images show a "coming soon" message.
+- **Contact details:** fill in `data/company.ts`. Empty fields show "To be confirmed"; email and phone
+  become clickable links once set.

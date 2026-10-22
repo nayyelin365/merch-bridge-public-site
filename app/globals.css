@@ -1,26 +1,222 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy-900: #0a1f3d;
+  --navy-800: #0f2b52;
+  --navy-700: #163a6b;
+  --navy-600: #1f4b85;
+  --teal-600: #0b8a8a;
+  --teal-500: #0fa3a3;
+  --teal-400: #2cc0bd;
+  --teal-50: #e8f7f6;
+  --accent: #e8822e; /* orange from the logo, used sparingly */
+
+  --ink: #14233a;
+  --ink-muted: #51607a;
+  --line: #dde4ee;
+  --surface: #ffffff;
+  --surface-alt: #f3f6fa;
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 28px;
+  --shadow-sm: 0 1px 2px rgb(10 31 61 / 6%), 0 2px 8px rgb(10 31 61 / 5%);
+  --shadow: 0 10px 30px rgb(10 31 61 / 10%);
+
+  --header-h: 72px;
+  --container: 1200px;
+  --gutter: clamp(16px, 4vw, 40px);
+
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  flex: 1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--navy-900);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--teal-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(56px, 8vw, 104px);
+}
+
+.section-alt {
+  background: var(--surface-alt);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-600);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 600;
+}
+
+.section-lead {
+  margin-top: 14px;
+  max-width: 640px;
+  color: var(--ink-muted);
+  font-size: 1.05rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 24px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.btn-primary {
+  background: var(--teal-500);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--teal-600);
+}
+
+.btn-outline-light {
+  border-color: rgb(255 255 255 / 70%);
+  color: #fff;
+}
+.btn-outline-light:hover {
+  background: rgb(255 255 255 / 12%);
+  border-color: #fff;
+}
+
+.btn-outline {
+  border-color: var(--navy-700);
+  color: var(--navy-700);
+}
+.btn-outline:hover {
+  background: var(--navy-700);
+  color: #fff;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Stop the page scrolling behind the mobile menu or image viewer. */
+html.menu-open,
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--navy-900);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 12px;
 }

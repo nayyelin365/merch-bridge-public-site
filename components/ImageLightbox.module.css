@@ -1,0 +1,124 @@
+.dialog {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+}
+
+.dialog::backdrop {
+  background: rgb(6 18 36 / 92%);
+}
+
+.dialog[open] {
+  animation: fade 0.2s ease-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 64px clamp(12px, 3vw, 32px) 24px;
+}
+
+.figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: min(1200px, 100%);
+  max-height: 100%;
+  min-width: 0;
+}
+
+.image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 160px);
+  object-fit: contain;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 45%);
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.counter {
+  font-size: 0.85rem;
+  color: rgb(255 255 255 / 60%);
+  font-variant-numeric: tabular-nums;
+}
+
+.close,
+.nav {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 25%);
+  background: rgb(255 255 255 / 10%);
+  color: #fff;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.close:hover,
+.nav:hover {
+  background: rgb(255 255 255 / 22%);
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 46px;
+  height: 46px;
+}
+
+.nav {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+}
+
+@media (max-width: 640px) {
+  .stage {
+    padding-bottom: 88px;
+  }
+  .nav {
+    position: absolute;
+    bottom: 20px;
+    width: 48px;
+    height: 48px;
+  }
+  .prev {
+    left: calc(50% - 64px);
+  }
+  .next {
+    right: calc(50% - 64px);
+  }
+  .image {
+    max-height: calc(100dvh - 220px);
+  }
+}

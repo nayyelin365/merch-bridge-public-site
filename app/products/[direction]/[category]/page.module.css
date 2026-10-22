@@ -1,0 +1,40 @@
+.brand {
+  padding: 14px 20px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 25%);
+}
+
+.brandLogo {
+  width: auto;
+  height: auto;
+  max-width: 220px;
+  max-height: 96px;
+  object-fit: contain;
+}
+
+.empty {
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  color: var(--ink-muted);
+}
+
+.more {
+  padding-block: 48px;
+}
+
+.moreTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.moreList {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
